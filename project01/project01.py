@@ -1,5 +1,6 @@
+#!/usr/bin/env python3
 """
-Group 1: Emma Nguyen, Fardina Tabassum, Shameem Shahib
+Group 1: Tien Nguyen, Fardina Tabassum, Shameem Shahib
 Project 01: Functional File Parsing
 """
 
@@ -13,8 +14,8 @@ def parse_line(line:str) -> Optional[List[str]]:
     - Take string as argument
     - If AF_EXAC is not present, skip the line, return None
     - If AF_EXAC is rare (< 0.0001), return a list of diseases in CLNDN
-    (does not include not_specified & not provided)
-    - if AF_EXAC is not rare, return emtpy list
+    (does not include not_specified & not_provided)
+    - if AF_EXAC is not rare, return empty list
     """
 
     rare_cutoff = 0.0001
@@ -25,7 +26,7 @@ def parse_line(line:str) -> Optional[List[str]]:
     if line.startswith('#'):
         return None
 
-    #values are tab separated and make up of 8 column
+    #values are tab separated and make up of 8 columns
     cols = line.split('\t')
     if len(cols) < 8:
         return None

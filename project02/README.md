@@ -1,19 +1,129 @@
 # Introduction
-Description of the project
+This project implements an n-th order Markov text generator that learns word-level transition probabilities from an input text document and uses them to generate new, probabilistically similar text.
 
 # Pseudocode
 ```
-define order (first order is one word per notebook) not necessarily coding logic, more conceptual  
-define current_state as beta  
-initialize mm with beta (S* from notebook syntax) because all mm will have beta no matter text {S*: None}  
-read line  
-split line into list of words  
-pop first element and store as next state  
-give current state next state as dict{"next state": 1} if "next state" not in mm[S*] else mm[current state][next state += 1]  
-then create key in mm, "first element": None if "first element" not in mm  
-set current state as next state  
-go to line 8 unless list empty  
-go to line 6 unless file empty
+FUNCTION: build_markov_model(markov_model:dict, new_text:str) -> dict:
+INPUT:
+    markov_model : dictionary mapping word → dictionary of next_word → count
+    new_text     : string of space-separated words
+
+OUTPUT:
+    markov_model : updated Markov model with transition counts
+
+ALGORITHM:
+    1. Split new_text into a list of words by " "
+    2. Add artificial start and end tokens:
+           augmented_states ← ["*S*"] + words + ["*E*"]
+
+    3. For each index i from 0 to length(augmented_states) − #order:
+           current_state ← augmented_states[i]
+           next_state ← augmented_states[i + 1]
+
+           If current_state is not in markov_model:
+               initialize markov_model[current_state] as an empty dictionary
+
+           If next_state is not in markov_model[current_state]:
+               initialize markov_model[current_state][next_state] to 0
+
+           Increment markov_model[current_state][next_state] by 1
+
+    4. Return the updated markov_model
+    
+    
+    
+FUNCTION: def build_markov_model(markov_model: dict, text: str, order: int) -> dict:   
+INPUT:
+    markov_model : dictionary mapping n-gram tuples → dictionary of next_word → count
+    text         : input string of space-separated words
+    order        : integer specifying the Markov order (n)
+
+OUTPUT:
+    markov_model : updated Markov model with transition counts
+
+ALGORITHM:
+    1. Split the input text into a list of words by " "
+
+    2. Create a list of states by:
+           - Prepending 'order' number of start tokens "*S*"
+           - Appending a single end token "*E*"
+       states ← ["*S*"] * order + words + ["*E*"]
+
+    3. For each index i from 0 to length(states) − order − 1:
+           current_state ← tuple of states from i to i + order − 1
+           next_state ← states[i + order]
+
+           If current_state is not in markov_model:
+               initialize markov_model[current_state] as an empty dictionary
+
+           If next_state is not in markov_model[current_state]:
+               initialize markov_model[current_state][next_state] to 0
+
+           Increment markov_model[current_state][next_state] by 1
+
+    4. Return the updated markov_model
+    
+    
+    
+FUNCTION: get_next_word(current_word, markov_model, seed=42)
+INPUT:
+    current_word : tuple representing the current n-gram state
+    markov_model : dictionary mapping state → dictionary of next_word → count
+
+OUTPUT:
+    next_word : randomly selected next word based on transition probabilities
+
+ALGORITHM:
+    1. If current_word is not a key in markov_model:
+           return end token "*E*"
+
+    2. Retrieve the dictionary of next-word counts for current_word
+
+    3. Convert the counts to a numeric array
+
+    4. Compute the total number of transitions
+
+    5. If total is less than or equal to zero:
+           return end token "*E*"
+
+    6. Compute transition probabilities by dividing each count by the total
+
+    7. Randomly select and return a next word using the computed probabilities
+    
+    
+
+FUNCTION: generate_random_text(markov_model, seed=42)
+
+INPUT:
+    markov_model : dictionary mapping n-gram states → transition dictionaries
+    seed         : integer used to seed the random number generator
+
+OUTPUT:
+    sentence : a randomly generated sequence of words
+
+ALGORITHM:
+    1. Seed the random number generator using the provided seed
+
+    2. Define start token "*S*" and end token "*E*"
+
+    3. Determine the Markov order by inspecting the length of any state in the model
+
+    4. Initialize the current state as a tuple containing 'order' start tokens
+
+    5. Initialize an empty list to store generated words
+
+    6. While True:
+           a. Select the next word using get_next_word(current_state, markov_model)
+
+           b. If the next word is the end token:
+                  break the loop
+
+           c. Append the next word to the word list
+
+           d. Update the current state by removing the oldest word
+              and appending the newly generated word
+
+    7. Join the generated words into a single string and return it
 ```
 
 # Successes
@@ -23,8 +133,9 @@ Description of the team's learning points
 Description of the stumbling blocks the team experienced
 
 # Personal Reflections
-## Group Leader
-Group leader's reflection on the project
+## Tien Nguyen (Group Leader)
+Working on this project helped me better understand the Markov model and how to apply it in practice. I gained insight into the importance of clean iteration logic, reproducibility through random seeding, and defensive handling of edge cases. In addition to the algorithm used in the functions, I also learned about using a .venv virtual environment and why a requirements.txt file is created to manage required modules. Through screen sharing with my teammates, we were able to collaboratively run, debug, and understand each function line by line using VS Code, which strengthened both my technical skills and my ability to communicate and troubleshoot code effectively.
+
 
 ## Other member
 Other members' reflections on the project

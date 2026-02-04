@@ -127,18 +127,24 @@ ALGORITHM:
 ```
 
 # Successes
-Description of the team's learning points
+- Understood the concept of Markov model
+- Upgraded to the nth order
+- Able to generate random text that is similar to the input file
 
 # Struggles
-Description of the stumbling blocks the team experienced
+- Struggled to find a way to generate more complex text file.
+- Simplified the function using available functions/modules.
+- Transforming data from dict to tuple, converting data in general between steps.
 
 # Personal Reflections
 ## Tien Nguyen (Group Leader)
 Working on this project helped me better understand the Markov model and how to apply it in practice. I gained insight into the importance of clean iteration logic, reproducibility through random seeding, and defensive handling of edge cases. In addition to the algorithm used in the functions, I also learned about using a .venv virtual environment and why a requirements.txt file is created to manage required modules. Through screen sharing with my teammates, we were able to collaboratively run, debug, and understand each function line by line using VS Code, which strengthened both my technical skills and my ability to communicate and troubleshoot code effectively.
 
+## Nicholas Bottomley
+This project was my first real exposure to markov models, so it was very educational to take the time to work through it. Although the concepts make sense and seem relatively straightforward, the implementation took a little longer to get down. It was very rewarding to see the generate_random_text() outputs after building the model and developing logic for output. I struggled a little with understanding and developing logic from reading in and generating one line of text to reading in and generating paragraphs as well, but was able to understand it thanks to help from my groupmates. Overall, this was a great new experience that I believe has greatly improved the depth of my algorithmic ability.
 
-## Other member
-Other members' reflections on the project
+## Meghana Ravi
+Working on this assignment helped me understand Markov Models better and reinforced the concepts we discussed in class. Starting with a single line of text and first-order models was especially helpful because it gave us a solid foundation. As we moved on to nth order models and using entire files to build the model, the complexity increased significantly and I found it a little challenging, but having base code from the first-order model and adding logic as the concepts became more complex made the process less overwhelming than if we started with nth order models or full text files directly. This project has helped me develop a more step-by-step approach to planning which has improved how I work through complex problems.
 
 # Generative AI Appendix
-As per the syllabus
+ChatGPT was used to help me understand the usage of NumPy functions, including np.array, for processing and normalizing data in this project.
